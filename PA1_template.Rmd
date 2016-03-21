@@ -22,12 +22,12 @@ act_data$date <- as.Date(actdata$date,"%Y-%m-%d")
 stepsPerDay <- tapply(act_data$steps, act_data$date,sum)
 ```
 
-####mean and medium Number of Steps Taken Per Day
+mean and medium Number of Steps Taken Per Day
 ```{r}
 mean(stepsPerDay,na.rm = TRUE)
 median(stepsPerDay,na.rm = TRUE)
 ```
-####The mean and median of total number of steps taken per day are 10766.19 and 10765 respectively.
+The mean and median of total number of steps taken per day are 10766.19 and 10765 respectively.
 
 ###Histogram of total number of steps taken per day
 ```{r}
@@ -72,5 +72,5 @@ xyplot(steps~interval | day_type, mean_steps_by_interval,type="l",layout=c(1,2),
 ```{r} 
 tapply(mean_steps_by_interval$steps,mean_steps_by_interval$day_type,function (x) { c(MINIMUM=min(x),MEAN=mean(x), MEDIAN=median(x),MAXIMUM=max(x))})
 ```
-####The mean of the weekend is high than the mean during the week! 
+The mean of the weekend is high than the mean during the week! 
 
