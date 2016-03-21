@@ -5,21 +5,51 @@ output:
     keep_md: true
 ---
 
-
 ## Loading and preprocessing the data
-
+fileName <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+download.file(fileName, dest="dataset.zip", mode="wb") 
+unzip ("dataset.zip", exdir = "./")
+act_data <- read.csv("activity.csv")
+act_data$date <- as.Date(actdata$date,"%Y-%m-%d")
 
 
 ## What is mean total number of steps taken per day?
+stepsPerDay <- tapply(act_data$steps, act_data$date,sum)
 
+####mean and medium Number of Steps Taken Per Day
+mean(stepsPerDay,na.rm = TRUE)
+median(stepsPerDay,na.rm = TRUE)
 
+###Histogram of total number of steps taken per day
+hist(stepsPerDay, xlab="number of steps per day", main="Histogram of Total Steps taken per day", col="light blue")
 
 ## What is the average daily activity pattern?
-
-
+stepsIntervals <- aggregate(act_data$steps, by=list(act_data$interval), mean, na.rm=TRUE, na.action=NULL)
+names(stepsIntervals)[1] <- "interval"
+names(stepsIntervals)[2] <- "mean.steps"
+plot(stepsIntervals$interval, stepsIntervals$mean.steps, type = "n", main = "Average number of steps at 5 minute Intervals", xlab = "5-minute intervals", ylab = "Average number of steps") 
+lines(stepsIntervals$interval,stepsIntervals$mean.steps,type = "l")
+abline(v=stepsIntervals[which.max(stepsIntervals$mean.steps), 1], col="blue", lwd=3)
+stepsIntervals[which.max(stepsIntervals$mean.steps), 1]
+num_na_values <- sum(is.na(act_data))
 
 ## Imputing missing values
-
+act_data_miss <- merge(act_data, stepsIntervals, by = "interval", sort= FALSE)
+act_data_miss$steps[is.na(act_data_miss$steps)] <- act_data_miss$mean.steps[is.na(act_data_miss$steps)]
+missing_data.nona <- act_data_miss[, c(2,3,1)]
+acd_data_new <- aggregate(missing_data.nona$steps, by=list(missing_data.nona$date), sum)
+names(acd_data_new)[1] <-"day"
+names(acd_data_new)[2] <-"steps"
+hist(acd_data_new$steps, col = "blue", main = "Total number of steps taken each day (without NA)",xlab = "Total steps")
+mean(acd_data_new$steps)
+median(acd_data_new$steps)
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+days <- weekdays(act_data$date)
+act_data$day_type <- ifelse(days == "Saturday" | days == "Sunday", "Weekend", "Weekday")
+mean_steps_by_interval <- aggregate(act_data$steps,by=list(act_data$interval,act_data$day_type),na.rm=TRUE, na.action=NUL, FUN = "mean")
+names(mean_steps_by_interval) <- c("interval","day_type","steps")
+xyplot(steps~interval | day_type, mean_steps_by_interval,type="l",layout=c(1,2),xlab="Interval",ylab = "Number of steps")
+tapply(mean_steps_by_interval$steps,mean_steps_by_interval$day_type,function (x) { c(MINIMUM=min(x),MEAN=mean(x), MEDIAN=median(x),MAXIMUM=max(x))})
+
