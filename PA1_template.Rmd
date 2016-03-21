@@ -59,7 +59,7 @@ hist(acd_data_new$steps, col = "blue", main = "Total number of steps taken each 
 mean(acd_data_new$steps)
 median(acd_data_new$steps)
 ```
-
+The new mean and median of total number of steps taken per day are 10766 and 10766 respectively, the median is exactly equal to the mean. Because of the strategy chosen, there is no impact of imputing missing data on the estimates of the mean daily number of steps.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r} 
