@@ -27,6 +27,7 @@ stepsPerDay <- tapply(act_data$steps, act_data$date,sum)
 mean(stepsPerDay,na.rm = TRUE)
 median(stepsPerDay,na.rm = TRUE)
 ```
+####The mean and median of total number of steps taken per day are 10766.19 and 10765 respectively.
 
 ###Histogram of total number of steps taken per day
 ```{r}
@@ -44,6 +45,7 @@ abline(v=stepsIntervals[which.max(stepsIntervals$mean.steps), 1], col="blue", lw
 stepsIntervals[which.max(stepsIntervals$mean.steps), 1]
 num_na_values <- sum(is.na(act_data))
 ```
+
 
 ## Imputing missing values
 ```{r}
@@ -66,5 +68,9 @@ act_data$day_type <- ifelse(days == "Saturday" | days == "Sunday", "Weekend", "W
 mean_steps_by_interval <- aggregate(act_data$steps,by=list(act_data$interval,act_data$day_type),na.rm=TRUE, na.action=NUL, FUN = "mean")
 names(mean_steps_by_interval) <- c("interval","day_type","steps")
 xyplot(steps~interval | day_type, mean_steps_by_interval,type="l",layout=c(1,2),xlab="Interval",ylab = "Number of steps")
-tapply(mean_steps_by_interval$steps,mean_steps_by_interval$day_type,function (x) { c(MINIMUM=min(x),MEAN=mean(x), MEDIAN=median(x),MAXIMUM=max(x))})```
+```
+```{r} 
+tapply(mean_steps_by_interval$steps,mean_steps_by_interval$day_type,function (x) { c(MINIMUM=min(x),MEAN=mean(x), MEDIAN=median(x),MAXIMUM=max(x))})
+```
+####The mean of the weekend is high than the mean during the week! 
 
