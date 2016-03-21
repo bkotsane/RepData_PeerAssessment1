@@ -18,11 +18,13 @@ act_data$date <- as.Date(actdata$date,"%Y-%m-%d")
 
 
 ## What is mean total number of steps taken per day?
-```{r}stepsPerDay <- tapply(act_data$steps, act_data$date,sum)```
+```{r}
+stepsPerDay <- tapply(act_data$steps, act_data$date,sum)
+```
 
 ####mean and medium Number of Steps Taken Per Day
-```{r}mean
-(stepsPerDay,na.rm = TRUE)
+```{r}
+mean(stepsPerDay,na.rm = TRUE)
 median(stepsPerDay,na.rm = TRUE)
 ```
 
