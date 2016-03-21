@@ -6,15 +6,15 @@ output:
 ---
 
 ## Loading and preprocessing the data
-fileName <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+```fileName <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 download.file(fileName, dest="dataset.zip", mode="wb") 
 unzip ("dataset.zip", exdir = "./")
 act_data <- read.csv("activity.csv")
-act_data$date <- as.Date(actdata$date,"%Y-%m-%d")
+act_data$date <- as.Date(actdata$date,"%Y-%m-%d")```
 
 
 ## What is mean total number of steps taken per day?
-stepsPerDay <- tapply(act_data$steps, act_data$date,sum)
+```stepsPerDay <- tapply(act_data$steps, act_data$date,sum)```
 
 ####mean and medium Number of Steps Taken Per Day
 mean(stepsPerDay,na.rm = TRUE)
