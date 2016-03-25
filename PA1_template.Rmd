@@ -1,19 +1,27 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
+title: "Reproducible Research: Personal Activity Monitoring"
 output: 
- author: "bkotsane - PA1_template.Rmd"
   html_document:
     keep_md: true
 ---
 ###   $$Reproducible Research - Project 1$$
+```{r}
 
+```
+
+```{r warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+library(lattice)
+```
 ## Loading and preprocessing the data
+
 ```{r, message=FALSE}
 fileName <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 download.file(fileName, dest="dataset.zip", mode="wb") 
 unzip ("dataset.zip", exdir = "./")
 act_data <- read.csv("activity.csv")
-act_data$date <- as.Date(actdata$date,"%Y-%m-%d")
+act_data$date <- as.Date(act_data$date,"%Y-%m-%d")
 ```
 
 
@@ -62,7 +70,7 @@ median(acd_data_new$steps)
 The new mean and median of total number of steps taken per day are 10766 and 10766 respectively, the median is exactly equal to the mean. Because of the strategy chosen, there is no impact of imputing missing data on the estimates of the mean daily number of steps.
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r} 
+```{r warning=FALSE, message=FALSE}
 days <- weekdays(act_data$date)
 act_data$day_type <- ifelse(days == "Saturday" | days == "Sunday", "Weekend", "Weekday")
 mean_steps_by_interval <- aggregate(act_data$steps,by=list(act_data$interval,act_data$day_type),na.rm=TRUE, na.action=NUL, FUN = "mean")
@@ -73,4 +81,3 @@ xyplot(steps~interval | day_type, mean_steps_by_interval,type="l",layout=c(1,2),
 tapply(mean_steps_by_interval$steps,mean_steps_by_interval$day_type,function (x) { c(MINIMUM=min(x),MEAN=mean(x), MEDIAN=median(x),MAXIMUM=max(x))})
 ```
 The mean of the weekend is high than the mean during the week! 
-
