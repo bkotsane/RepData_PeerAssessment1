@@ -64,7 +64,7 @@ lines(stepsIntervals$interval,stepsIntervals$mean.steps,type = "l")
 abline(v=stepsIntervals[which.max(stepsIntervals$mean.steps), 1], col="blue", lwd=3)
 ```
 
-![](PA1_template_files/instructions_fig/unnamed-chunk-7-1.png)
+![](./instructions_fig/unnamed-chunk-7-1.png)
 
 ```r
 stepsIntervals[which.max(stepsIntervals$mean.steps), 1]
