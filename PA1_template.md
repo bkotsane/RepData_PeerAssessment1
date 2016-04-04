@@ -51,7 +51,7 @@ The mean and median of total number of steps taken per day are 10766.19 and 1076
 hist(stepsPerDay, xlab="number of steps per day", main="Histogram of Total Steps taken per day", col="light blue")
 ```
 
-![](PA1_template_files/instructions_fig/unnamed-chunk-6-1.png)
+![](./instructions_fig/unnamed-chunk-6-1.png)
 
 ## What is the average daily activity pattern?
 
@@ -91,7 +91,7 @@ names(acd_data_new)[2] <-"steps"
 hist(acd_data_new$steps, col = "blue", main = "Total number of steps taken each day (without NA)",xlab = "Total steps")
 ```
 
-![](PA1_template_files/instructions_fig/unnamed-chunk-8-1.png)
+![](./instructions_fig/unnamed-chunk-8-1.png)
 
 ```r
 mean(acd_data_new$steps)
@@ -120,7 +120,7 @@ names(mean_steps_by_interval) <- c("interval","day_type","steps")
 xyplot(steps~interval | day_type, mean_steps_by_interval,type="l",layout=c(1,2),xlab="Interval",ylab = "Number of steps")
 ```
 
-![](PA1_template_files/instructions_fig/unnamed-chunk-9-1.png)
+![](./instructions_fig/unnamed-chunk-9-1.png)
 
 ```r
 tapply(mean_steps_by_interval$steps,mean_steps_by_interval$day_type,function (x) { c(MINIMUM=min(x),MEAN=mean(x), MEDIAN=median(x),MAXIMUM=max(x))})
